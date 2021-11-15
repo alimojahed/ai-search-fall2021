@@ -33,11 +33,11 @@ public class BFS extends SearchAlgorithm {
             return;
         }
         while (!frontier.isEmpty()) {
-            oneStepSearch(true);
+            oneLevelSearch(true);
         }
     }
 
-    public void oneStepSearch(boolean goalTest) {
+    public void oneLevelSearch(boolean goalTest) {
         State tempState = frontier.poll();
         inFrontier.remove(tempState.hash());
         explored.put(tempState.hash(), tempState);

@@ -36,10 +36,10 @@ public class BDS extends SearchAlgorithm {
         while (!bfsFromStart.getFrontier().isEmpty() && !bfsFromGoal.getFrontier().isEmpty()) {
 
             keepTrackOfPath(bfsFromStart, pathTrackerFromStart);
-            bfsFromStart.oneStepSearch(false);
+            bfsFromStart.oneLevelSearch(false);
 
             keepTrackOfPath(bfsFromGoal, pathTrackerFromGoal);
-            bfsFromGoal.oneStepSearch(false);
+            bfsFromGoal.oneLevelSearch(false);
 
             if (intersect()) {
                 State intersectedState = getIntersectedState();
