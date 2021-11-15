@@ -53,7 +53,7 @@ public class RBFS extends InformedSearchAlgorithm {
                 return new ResultWrapper(false, null, Integer.MAX_VALUE);
             }
 
-            int secondValue = successors.poll().evaluation();
+            int secondValue = successors.peek().evaluation();
 
             ResultWrapper tempResult = recursiveSearch(bestSuccessor, Math.min(secondValue, limit));
 
