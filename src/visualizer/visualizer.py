@@ -12,7 +12,7 @@ class GraphVisualization:
         self.visual.append(temp)
 
     def visualize(self, index, labels, selected_node_id):
-        G = nx.resource.Graph()
+        G = nx.Graph()
         G.add_edges_from(self.visual)
         pos = nx.spring_layout(G, seed=3113794652)
 
@@ -40,7 +40,9 @@ class GraphVisualization:
             plt.title('state ' + str(index))
         plt.show()
 
-file_name=input("please enter file name: ")
+
+file_name = input("please enter algorithm name: ")
+file_name = file_name + "-result.txt"
 f = open(file_name, "r")
 text = f.read()
 states = text.split("\n")

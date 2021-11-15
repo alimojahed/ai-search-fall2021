@@ -11,9 +11,15 @@ import java.util.Queue;
 public class BFS extends SearchAlgorithm {
 
 
+    private final Hashtable<String, State> inFrontier = new Hashtable<>();
+    private final Hashtable<String, State> explored = new Hashtable<>();
+    private final Queue<State> frontier = new LinkedList<>();
+
     public BFS(State initialState) {
-        super(initialState);
-        this.algorithmName = "BFS";
+        super(initialState, "BFS");
+
+        frontier.add(initialState);
+        inFrontier.put(initialState.hash(), initialState);
     }
 
     public static void search(State initialState) {
@@ -22,32 +28,44 @@ public class BFS extends SearchAlgorithm {
 
     @Override
     public void search() {
-        Queue<State> frontier = new LinkedList<State>();
-        Hashtable<String, Boolean> inFrontier = new Hashtable<>();
-        Hashtable<String, Boolean> explored = new Hashtable<>();
         if (isGoal(initialState)) {
             result(initialState);
             return;
         }
-        frontier.add(initialState);
-        inFrontier.put(initialState.hash(), true);
         while (!frontier.isEmpty()) {
-            State tempState = frontier.poll();
-            inFrontier.remove(tempState.hash());
-            explored.put(tempState.hash(), true);
-            ArrayList<State> children = tempState.successor();
-            for (int i = 0; i < children.size(); i++) {
-                if (!(inFrontier.containsKey(children.get(i).hash()))
-                        && !(explored.containsKey(children.get(i).hash()))) {
-                    if (isGoal(children.get(i))) {
-                        result(children.get(i));
-                        return;
-                    }
-                    frontier.add(children.get(i));
-                    inFrontier.put(children.get(i).hash(), true);
+            oneStepSearch(true);
+        }
+    }
+
+    public void oneStepSearch(boolean goalTest) {
+        State tempState = frontier.poll();
+        inFrontier.remove(tempState.hash());
+        explored.put(tempState.hash(), tempState);
+        ArrayList<State> children = tempState.successor();
+        for (int i = 0; i < children.size(); i++) {
+            if (!(inFrontier.containsKey(children.get(i).hash()))
+                    && !(explored.containsKey(children.get(i).hash()))) {
+                if (goalTest && isGoal(children.get(i))) {
+                    result(children.get(i));
+                    return;
                 }
+                frontier.add(children.get(i));
+                inFrontier.put(children.get(i).hash(), children.get(i));
             }
         }
+
+    }
+
+    public Hashtable<String, State> getExplored() {
+        return explored;
+    }
+
+    public Hashtable<String, State> getInFrontier() {
+        return inFrontier;
+    }
+
+    public Queue<State> getFrontier() {
+        return frontier;
     }
 }
 

@@ -2,7 +2,7 @@ import resource.Color;
 import resource.Graph;
 import resource.Node;
 import resource.State;
-import search.uninformed.DFS;
+import search.uninformed.IDS;
 
 public class Main {
 
@@ -79,6 +79,6 @@ public class Main {
 
         State initialState = new State(initialGraph, -1, null);
 
-        DFS.search(initialState);
+        IDS.search(initialState, 8);
     }
 }

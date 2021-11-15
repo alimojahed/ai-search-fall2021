@@ -2,12 +2,15 @@ package resource;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.UUID;
 
 public class State {
 
     private Graph graph;
     private int selectedNodeId;
     private State parentState;
+    protected String stateId = UUID.randomUUID().toString();
 
     public State(Graph graph, int selectedNodeId, State parentState) {
         this.graph = graph.copy();
@@ -101,5 +104,18 @@ public class State {
 
     public int getSelectedNodeId() {
         return selectedNodeId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return stateId.equals(state.stateId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stateId);
     }
 }

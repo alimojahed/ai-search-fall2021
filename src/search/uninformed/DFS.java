@@ -1,12 +1,5 @@
 package search.uninformed;
 
-/*
-    author: alimojahed
-    date: 14.11.21
-    project: Search_Project_AI
-*/
-
-
 import resource.State;
 import search.SearchAlgorithm;
 
@@ -14,11 +7,16 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
 
+/*
+    author: alimojahed
+    date: 14.11.21
+    project: Search_Project_AI
+*/
+
 public class DFS extends SearchAlgorithm {
 
     public DFS(State initialState) {
-        super(initialState);
-        this.algorithmName = "DFS";
+        super(initialState, "DFS");
     }
 
     public static void search(State initialState) {

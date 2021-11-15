@@ -16,12 +16,13 @@ import java.util.Stack;
 public abstract class SearchAlgorithm {
 
     protected final State initialState;
-    protected final String RESULT_PATH_PREFIX = "src/test/";
+    protected final String RESULT_PATH_PREFIX = "src/visualizer/";
     protected final String RESULT_PATH_POSTFIX = "-result.txt";
     protected String algorithmName;
 
-    public SearchAlgorithm(State initialState) {
+    public SearchAlgorithm(State initialState, String algorithmName) {
         this.initialState = initialState;
+        this.algorithmName = algorithmName;
     }
 
     public abstract void search();
@@ -36,7 +37,8 @@ public abstract class SearchAlgorithm {
         return true;
     }
 
-    protected void result(State state) {
+
+    protected Stack<State> getSolutionPath(State state) {
         Stack<State> states = new Stack<State>();
         while (true) {
             states.push(state);
@@ -46,6 +48,11 @@ public abstract class SearchAlgorithm {
                 state = state.getParentState();
             }
         }
+
+        return states;
+    }
+
+    protected void writeToFile(Stack<State> states) {
         try {
             String resultFileName = RESULT_PATH_PREFIX + algorithmName + RESULT_PATH_POSTFIX;
             FileWriter myWriter = new FileWriter(resultFileName);
@@ -66,6 +73,11 @@ public abstract class SearchAlgorithm {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    protected void result(State state) {
+        Stack<State> states = getSolutionPath(state);
+        writeToFile(states);
     }
 
 
